@@ -142,3 +142,61 @@ let arr1=[1,2,3,4,5];
 let arr2=[3,4,5,6];
 
 console.log(common2(arr1,arr2));
+
+
+// Todo List  App using Es6 script 
+let list=[];
+
+function add(task){
+task.push({task,done:false});
+console.log("task Added");
+
+
+}
+
+function remove(index){
+
+
+if(index<1||index>list.length){
+
+    console.log("Your Input is invalid");
+    
+}
+
+else{
+
+list.splice(index-1,1);
+console.log(list);
+
+
+}
+
+}
+
+
+function complete(index){
+
+
+list[index-1].done=true;
+console.log(list);
+
+
+}
+
+
+function filtertask(){
+
+    console.log(list.filter(item=>item.done===true));
+
+    
+}
+
+function view_list(){
+
+list.map((item,index)=>{
+
+    console.log(`${index+1}: ${item.task}${item.done}`);
+    
+})
+
+}
