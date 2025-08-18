@@ -1,4 +1,3 @@
-/* Custom styles for react-slick carousel */
 .slick-prev,
 .slick-next {
   z-index: 1;
@@ -46,7 +45,6 @@
   opacity: 1;
 }
 
-/* Custom styles for card spacing */
 .slick-slide > div {
   margin: 0 8px;
 }
@@ -55,7 +53,6 @@
   margin: 0 -8px;
 }
 
-/* Improve slide visibility during transition */
 .slick-slide {
   opacity: 0.5;
   transition: opacity 0.3s ease;
@@ -65,7 +62,6 @@
   opacity: 1;
 }
 
-/* Responsive adjustments */
 @media (max-width: 640px) {
   .slick-prev {
     left: -10px;

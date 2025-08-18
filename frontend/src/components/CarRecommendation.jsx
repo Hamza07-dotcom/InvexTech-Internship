@@ -1,4 +1,3 @@
-// src/components/CarRecommendation.jsx
 "use client";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,10 +6,8 @@ import { toggleFavorite } from "@/features/favorites/favoritesSlice";
 import Image from "next/image";
 import Link from "next/link";
 
-// Custom arrow components for the carousel
 const CustomNextArrow = ({ onClick, currentSlide, slideCount, slidesToShow }) => {
   const remainingSlides = slideCount - (currentSlide + slidesToShow);
-  // Only show arrow if there are more slides to show
   if (remainingSlides <= 0) return null;
 
   return (
@@ -37,7 +34,6 @@ const CustomNextArrow = ({ onClick, currentSlide, slideCount, slidesToShow }) =>
 };
 
 const CustomPrevArrow = ({ onClick, currentSlide }) => {
-  // Only show arrow if we're not at the first slide
   if (currentSlide === 0) return null;
 
   return (
@@ -64,17 +60,14 @@ const CustomPrevArrow = ({ onClick, currentSlide }) => {
 };
 
 const getCarImageUrl = (car) => {
-  // First try the image from the API if it's a full URL or starts with /
   if (car.image && (car.image.startsWith('http') || car.image.startsWith('/'))) {
-    // Don't use the old BMW image path
     if (!car.image.includes('bmw5.jpg')) {
       return car.image;
     }
   }
 
-  // Map of model names to image files (case-insensitive)
   const modelToImage = {
-    'bmw m5': '/images/cars/bmw-m5.jpg',  // BMW M5 car image
+    'bmw m5': '/images/cars/bmw-m5.jpg',
     'ferrari f8': '/images/cars/ferrari-f8.png',
     'camaro': '/images/cars/camaro.png',
     'chevrolet camaro': '/images/cars/camaro.png',
@@ -84,13 +77,11 @@ const getCarImageUrl = (car) => {
     'volvo': '/images/cars/volvo.png'
   };
 
-  // Try to find a matching image by model name
   const modelKey = car.model?.toLowerCase();
   if (modelKey && modelToImage[modelKey]) {
     return modelToImage[modelKey];
   }
 
-  // Try brand-specific default images
   const brandDefaults = {
     'ferrari': '/images/cars/ferrari-f8.png',
     'chevrolet': '/images/cars/camaro.png',
@@ -104,7 +95,6 @@ const getCarImageUrl = (car) => {
     return brandDefaults[brandKey];
   }
 
-  // Default fallback image
   return '/images/img.png';
 };
 import Slider from "react-slick";
@@ -120,7 +110,6 @@ export default function CarRecommendation() {
     dispatch(fetchCars());
   }, [dispatch]);
 
-  // Add this for debugging
   useEffect(() => {
     if (cars?.length) {
       console.log('Cars data available:', cars.length, 'cars');
@@ -154,7 +143,7 @@ export default function CarRecommendation() {
     </div>
   );
 
-  console.log('Cars data:', cars); // Add this line for debugging
+  console.log('Cars data:', cars); 
 
   const settings = {
     dots: false,
@@ -168,35 +157,35 @@ export default function CarRecommendation() {
     prevArrow: <CustomPrevArrow />,
     responsive: [
       {
-        breakpoint: 1536, // 2xl
+        breakpoint: 1536,
         settings: {
           slidesToShow: 4,
           slidesToScroll: 4,
         }
       },
       {
-        breakpoint: 1280, // xl
+        breakpoint: 1280,
         settings: {
           slidesToShow: 3,
           slidesToScroll: 3,
         }
       },
       {
-        breakpoint: 1024, // lg
+        breakpoint: 1024, 
         settings: {
           slidesToShow: 2,
           slidesToScroll: 2,
         }
       },
       {
-        breakpoint: 768, // md
+        breakpoint: 768, 
         settings: {
           slidesToShow: 2,
           slidesToScroll: 2
         }
       },
       {
-        breakpoint: 640, // sm
+        breakpoint: 640, 
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1
@@ -205,7 +194,6 @@ export default function CarRecommendation() {
     ]
   };
 
-  // Filter out BMW M5 (ID: 1) from recommendations
   const filteredCars = cars.filter(car => car.id !== 1);
 
   return (

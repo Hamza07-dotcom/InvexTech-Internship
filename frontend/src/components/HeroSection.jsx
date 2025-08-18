@@ -26,16 +26,13 @@ export default function Hero() {
       className="relative h-[420px] bg-cover bg-center"
       style={{ backgroundImage: "url('/images/img.png')" }}
     >
-      {/* Dark Overlay */}
       <div className="absolute inset-0 bg-black/40"></div>
 
-      {/* Content */}
       <div className="relative z-10 flex flex-col items-center justify-center h-full text-center text-white px-4">
         <h1 className="mb-6 text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold leading-snug">
           Turn your dream car <br /> into reality with us today!
         </h1>
 
-        {/* Search Bar */}
         <div
           className="
             flex flex-col w-full 
@@ -44,7 +41,6 @@ export default function Hero() {
             relative md:top-[35%] z-10
           "
         >
-          {/* Search Input */}
           <input
             type="text"
             placeholder="Search your dream car..."
@@ -55,7 +51,6 @@ export default function Hero() {
             "
           />
 
-          {/* Filters + Button */}
           <div
             className="
               mt-3 flex flex-col sm:flex-row gap-2

@@ -14,7 +14,7 @@ export default function ForgotPassword() {
   const [error, setError] = useState("");
   const [redirecting, setRedirecting] = useState(false);
 
-  // Step 1: Enter email or phone
+  
   const handleSendOtp = () => {
     if (!input) {
       setError("Please enter your email or phone number.");
@@ -28,7 +28,7 @@ export default function ForgotPassword() {
     setStep(2);
   };
 
-  // Step 2: Enter OTP
+  
   const handleVerifyOtp = () => {
     const storedOtp = localStorage.getItem("otp");
     if (enteredOtp === storedOtp) {
@@ -39,7 +39,7 @@ export default function ForgotPassword() {
     }
   };
 
-  // Step 3: Change password
+  
   const handleChangePassword = () => {
     if (!newPassword || !confirmPassword) {
       setError("Please fill in both password fields.");
@@ -49,7 +49,7 @@ export default function ForgotPassword() {
       setError("Passwords do not match.");
       return;
     }
-    // Simulate password change by storing in localStorage
+    
     const userContact = localStorage.getItem("userContact");
     localStorage.setItem(`password_${userContact}`, newPassword);
     setError("");
@@ -57,7 +57,7 @@ export default function ForgotPassword() {
     setTimeout(() => {
       setRedirecting(true);
       window.location.href = "/login";
-    }, 3000); // Redirect after 3 seconds
+    }, 3000); 
   };
 
   return (

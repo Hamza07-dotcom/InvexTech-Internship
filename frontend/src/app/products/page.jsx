@@ -68,7 +68,6 @@ export default function ProductsPage() {
     dispatch(fetchCars());
   }, [dispatch]);
 
-  // Initialize filters from URL params
   useEffect(() => {
     const searchParams = new URLSearchParams(window.location.search);
     const newFilters = { ...filters };
@@ -93,7 +92,6 @@ export default function ProductsPage() {
     }
 
     setFilters(newFilters);
-    // Store search query for filtering
     if (search) {
       setSearchQuery(search);
     }
@@ -154,7 +152,6 @@ export default function ProductsPage() {
     console.log('Current filters:', filters);
     let filtered = cars.filter(car => {
       const monthlyInstallment = car.price * 0.015;
-      // Search query filter
       if (searchQuery) {
         const searchStr = searchQuery.toLowerCase();
         const modelMatch = car.model?.toLowerCase().includes(searchStr);
@@ -164,15 +161,12 @@ export default function ProductsPage() {
           return false;
         }
       }
-      // Transmission filter
       if (filters.transmission.length > 0 && !filters.transmission.includes(car.transmission)) {
         return false;
       }
-      // Fuel filter
       if (filters.fuel.length > 0 && !filters.fuel.includes(car.fuel)) {
         return false;
       }
-      // Engine capacity filter
       if (filters.engineCapacity.length > 0 && !filters.engineCapacity.some(range => {
         if (range === '<1000') return car.engineCapacity < 1000;
         if (range === '1000-2000') return car.engineCapacity >= 1000 && car.engineCapacity <= 2000;
@@ -182,14 +176,12 @@ export default function ProductsPage() {
       })) {
         return false;
       }
-      // Price range filter
       if (filters.priceRange.min && car.price < Number(filters.priceRange.min)) {
         return false;
       }
       if (filters.priceRange.max && car.price > Number(filters.priceRange.max)) {
         return false;
       }
-      // Installment filter
       if (filters.installmentRange) {
         if (
           (filters.installmentRange === '<1000' && monthlyInstallment >= 1000) ||
@@ -201,7 +193,6 @@ export default function ProductsPage() {
       }
       return true;
     });
-    // If no cars match all filters, fallback to OR logic (show cars matching any filter)
     if (filtered.length === 0 && (
       filters.transmission.length > 0 || filters.fuel.length > 0 || filters.engineCapacity.length > 0 || filters.priceRange.min || filters.priceRange.max || filters.installmentRange
     )) {
@@ -231,11 +222,10 @@ export default function ProductsPage() {
     return filtered.sort((a, b) => {
       if (sortBy === 'price_asc') return a.price - b.price;
       if (sortBy === 'price_desc') return b.price - a.price;
-      return 0; // default sorting (most relevant)
+      return 0; 
     });
   }, [cars, filters, sortBy, searchQuery]);
 
-  // Get current page items
   const currentCars = useMemo(() => {
     const startIndex = (currentPage - 1) * itemsPerPage;
     return filteredCars.slice(startIndex, startIndex + itemsPerPage);
@@ -302,9 +292,7 @@ export default function ProductsPage() {
 
       <div className="max-w-7xl mx-auto px-4 py-10">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-          {/* ---- Sidebar (NEW DESIGN) ---- */}
           <aside className="bg-white p-4 rounded-lg shadow-sm border space-y-6 h-fit">
-            {/* Car brand */}
             <div>
               <h3 className="text-sm font-semibold text-gray-700 mb-3">
                 Car brand
@@ -338,7 +326,6 @@ export default function ProductsPage() {
               <button className="text-blue-600 text-xs mt-2">See all</button>
             </div>
 
-            {/* Car type */}
             <div>
               <h3 className="text-sm font-semibold text-gray-700 mb-3">
                 Car type
@@ -373,7 +360,6 @@ export default function ProductsPage() {
               <button className="text-blue-600 text-xs mt-2">See all</button>
             </div>
 
-            {/* Transmission */}
             <div>
               <h3 className="text-sm font-semibold text-gray-700 mb-2">
                 Transmission
@@ -392,7 +378,6 @@ export default function ProductsPage() {
               </div>
             </div>
 
-            {/* Fuel */}
             <div>
               <h3 className="text-sm font-semibold text-gray-700 mb-2">Fuel</h3>
               <div className="space-y-1 text-sm">
@@ -409,7 +394,6 @@ export default function ProductsPage() {
               </div>
             </div>
 
-            {/* Engine capacity */}
             <div>
               <h3 className="text-sm font-semibold text-gray-700 mb-2">
                 Engine capacity
@@ -433,7 +417,6 @@ export default function ProductsPage() {
               </div>
             </div>
 
-            {/* Price */}
             <div>
               <h3 className="text-sm font-semibold text-gray-700 mb-2">
                 Price
@@ -454,7 +437,6 @@ export default function ProductsPage() {
               />
             </div>
 
-            {/* Installments */}
             <div>
               <h3 className="text-sm font-semibold text-gray-700 mb-2">
                 Installments
@@ -480,7 +462,6 @@ export default function ProductsPage() {
             </div>
           </aside>
 
-          {/* ---- Main content ---- */}
           <main className="md:col-span-3">
             <div className="flex justify-between items-center mb-6">
               <p className="text-sm">
@@ -499,7 +480,6 @@ export default function ProductsPage() {
               </select>
             </div>
 
-            {/* Cars Grid */}
             {filteredCars.length === 0 ? (
               <div className="text-center py-8">
                 <p className="text-gray-500 mb-4">No cars found matching your filters</p>
@@ -530,7 +510,6 @@ export default function ProductsPage() {
                       onClick={() => goToProductDetail(car.id)}
                   className="bg-white rounded-lg shadow-md overflow-hidden relative hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 cursor-pointer"
                 >
-                  {/* Image + Heart */}
                   <div className="relative w-full h-48">
                     <Image
                       src={getCarImageUrl(car)}
@@ -577,7 +556,6 @@ export default function ProductsPage() {
                     </button>
                   </div>
 
-                  {/* Details */}
                   <div className="p-4">
                     <h3 className="text-lg font-semibold text-gray-900">
                       {car.model}
@@ -604,7 +582,6 @@ export default function ProductsPage() {
               </div>
             )}
 
-            {/* Pagination */}
             {filteredCars.length > 0 && (
               <div className="flex justify-between items-center mt-8" style={{ minHeight: '60px' }}>
                 <div></div>
@@ -616,7 +593,7 @@ export default function ProductsPage() {
                       setCurrentPage(1);
                     }
                   }}
-                  className={`flex items-center gap-2 bg-blue-600 text-white rounded px-6 py-3 text-sm font-semibold hover:bg-blue-700 transition-all${currentPage >= totalPages ? ' opacity-50 cursor-not-allowed' : ''}`}
+                  className={`flex items-center gap-2 bg-blue-600 text-white rounded px-6 py-3 text-sm font-semibold hover:bg-blue-700 transition-all${currentPage >= totalPages ? ' opacity-50  cursor-grab' : ''}`}
                   style={{ minWidth: '140px' }}
                   disabled={filteredCars.length === 0}
                 >

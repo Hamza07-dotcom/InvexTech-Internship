@@ -1,4 +1,3 @@
-// app/register/page.jsx
 "use client";
 
 import { useState } from "react";
@@ -11,7 +10,6 @@ export default function RegisterPage() {
   const [success, setSuccess] = useState("");
   const [error, setError] = useState("");
 
-  // React Hook Form
   const {
     register,
     handleSubmit,
@@ -22,34 +20,28 @@ export default function RegisterPage() {
     setError("");
     setSuccess("");
 
-    // Get existing users from localStorage
     const users = JSON.parse(localStorage.getItem("users")) || [];
 
-    // Check if email already exists
     const userExists = users.find((u) => u.email === data.email);
     if (userExists) {
       setError("User already exists with this email.");
       return;
     }
 
-    // Add new user
     users.push({ email: data.email, password: data.password });
     localStorage.setItem("users", JSON.stringify(users));
 
     setSuccess("Successfully registered! You can now log in.");
-    // Optionally redirect after a short delay
     setTimeout(() => router.push("/login"), 1500);
   };
 
   return (
     <div className="flex min-h-screen">
-      {/* LEFT SIDE - Form */}
       <div className="flex w-full md:w-1/2 items-center justify-center bg-gray-50 px-6">
         <div className="w-full max-w-md rounded-lg bg-white p-8 shadow-lg">
-          {/* Logo */}
           <div className="flex justify-center mb-6">
             <img
-              src="/images/logo.png" // 👉 put your logo in /public/images/
+              src="/images/logo.png" 
               alt="Carvista Logo"
               className="h-12"
             />
@@ -59,7 +51,6 @@ export default function RegisterPage() {
           <p className="mb-6 text-gray-600">Register to find your dream car.</p>
 
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-            {/* Email */}
             <div>
               <input
                 type="email"
@@ -78,7 +69,6 @@ export default function RegisterPage() {
               )}
             </div>
 
-            {/* Password */}
             <div>
               <input
                 type="password"
@@ -99,9 +89,7 @@ export default function RegisterPage() {
               )}
             </div>
 
-            {/* Show error */}
             {error && <p className="text-sm text-red-500">{error}</p>}
-            {/* Show success */}
             {success && <p className="text-sm text-green-600">{success}</p>}
 
             <button
@@ -113,7 +101,6 @@ export default function RegisterPage() {
             </button>
           </form>
 
-          {/* Already have account */}
           <p className="mt-4 text-center text-sm">
             Already have an account?{" "}
             <Link href="/login" className="text-blue-600 hover:underline">
@@ -123,14 +110,7 @@ export default function RegisterPage() {
         </div>
       </div>
 
-      {/* RIGHT SIDE - Image */}
-      <div className="hidden md:block w-1/2">
-        <img
-          src="/images/login/blue-car.png"
-          alt="Register Carvista"
-          className="h-screen w-full object-cover"
-        />
-      </div>
+      
     </div>
   );
 }

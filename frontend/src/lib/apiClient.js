@@ -7,9 +7,8 @@ const apiClient = axios.create({
   },
 });
 
-// API endpoints
 export const api = {
-  // Car endpoints
+
   getAllCars: () => apiClient.get('/api/veiculos'),
   getCarById: (id) => apiClient.get(`/api/veiculos/${id}`),
   searchCars: (query) => apiClient.get(`/api/veiculos/find?q=${query}`),

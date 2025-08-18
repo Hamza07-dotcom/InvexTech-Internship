@@ -25,8 +25,7 @@ export default function CreditSection() {
     const totalDownPayment = downPayment + adminFee;
     const loanAmount = price - downPayment;
     
-    // Simple interest calculation (this is a basic example)
-    const annualInterestRate = 0.05; // 5% interest rate
+    const annualInterestRate = 0.05; 
     const monthlyInterestRate = annualInterestRate / 12;
     const numberOfPayments = loanTerm * 12;
     
@@ -47,7 +46,6 @@ export default function CreditSection() {
     <section className="bg-blue-50 py-12">
       <div className="max-w-7xl mx-auto px-4">
         
-        {/* Tabs */}
         <div className="flex items-center gap-6 mb-8">
           <button
             onClick={() => setActiveTab("simulation")}
@@ -71,7 +69,6 @@ export default function CreditSection() {
           </button>
         </div>
 
-        {/* Tab content */}
         {activeTab === "simulation" && (
           <div className="bg-white rounded-xl shadow-md p-6">
             <h2 className="text-2xl font-bold mb-2">Simulate your credit now!</h2>
@@ -80,7 +77,6 @@ export default function CreditSection() {
             </p>
             
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              {/* Left Form */}
               <div className="space-y-4">
                 <select 
                   className="w-full bg-blue-50 border border-gray-300 rounded-md px-3 py-2"
@@ -161,7 +157,6 @@ export default function CreditSection() {
                 </div>
               </div>
 
-              {/* Right Result */}
               <div className="border border-gray-200 rounded-md p-6 flex flex-col justify-between">
                 <div>
                   <p className="text-sm text-gray-500">Monthly installments*</p>

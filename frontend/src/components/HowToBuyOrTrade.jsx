@@ -24,7 +24,6 @@ export default function HowToBuyOrTrade() {
     <section className="bg-blue-50 py-12">
       <div className="max-w-7xl mx-auto px-4">
         
-        {/* Tabs */}
         <div className="flex items-center gap-6 mb-8">
           <button
             onClick={() => setActiveTab("buy")}
@@ -48,7 +47,6 @@ export default function HowToBuyOrTrade() {
           </button>
         </div>
 
-        {/* Content */}
         <div className="grid grid-cols-1 md:grid-cols-5 gap-8 items-center">
           <div className="md:col-span-2">
             <h2 className="text-2xl font-bold mb-4">

@@ -1,7 +1,7 @@
 export default function FilterSidebar() {
   return (
     <div className="space-y-6">
-      {/* Car brand */}
+      
       <div>
         <h4 className="font-semibold mb-3">Car brand</h4>
         <div className="grid grid-cols-3 gap-3">
@@ -14,7 +14,6 @@ export default function FilterSidebar() {
         <button className="mt-2 text-sm text-blue-600">See all</button>
       </div>
 
-      {/* Car type */}
       <div>
         <h4 className="font-semibold mb-3">Car type</h4>
         <div className="grid grid-cols-3 gap-3 text-sm text-center">
@@ -25,7 +24,6 @@ export default function FilterSidebar() {
         <button className="mt-2 text-sm text-blue-600">See all</button>
       </div>
 
-      {/* Transmission */}
       <div>
         <h4 className="font-semibold mb-3">Transmission</h4>
         {["Automatic","Manual"].map((t) => (
@@ -35,7 +33,6 @@ export default function FilterSidebar() {
         ))}
       </div>
 
-      {/* Fuel */}
       <div>
         <h4 className="font-semibold mb-3">Fuel</h4>
         {["Gas","Electric","Hybrid","Diesel"].map((f) => (
@@ -45,7 +42,6 @@ export default function FilterSidebar() {
         ))}
       </div>
 
-      {/* Engine capacity */}
       <div>
         <h4 className="font-semibold mb-3">Engine capacity</h4>
         {["<1000 cc","1000 - 2000 cc","2000 - 3000 cc",">3000 cc"].map((cap) => (
@@ -55,7 +51,6 @@ export default function FilterSidebar() {
         ))}
       </div>
 
-      {/* Price */}
       <div>
         <h4 className="font-semibold mb-3">Price</h4>
         <div className="flex space-x-2">
@@ -64,7 +59,6 @@ export default function FilterSidebar() {
         </div>
       </div>
 
-      {/* Installments */}
       <div>
         <h4 className="font-semibold mb-3">Installments</h4>
         {["<$1,000/month","<$2,000/month",">$2,000/month"].map((opt) => (

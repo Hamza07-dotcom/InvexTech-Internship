@@ -1,4 +1,3 @@
-// src/components/home/Footer.jsx
 import Link from "next/link";
 
 export default function Footer() {
@@ -7,7 +6,6 @@ export default function Footer() {
       <div className="mx-auto max-w-7xl px-4">
         <div className="grid gap-8 md:grid-cols-4 items-start">
           
-          {/* Logo Section */}
           <div>
             <img src="/images/logo.png" alt="Carvista" className="h-10" />
             <p className="mt-3 text-sm text-gray-600">
@@ -15,7 +13,6 @@ export default function Footer() {
             </p>
           </div>
 
-          {/* Services */}
           <div>
             <h4 className="font-semibold">Services</h4>
             <ul className="mt-3 space-y-2 text-sm text-gray-600">
@@ -26,7 +23,6 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Others */}
           <div>
             <h4 className="font-semibold">Others</h4>
             <ul className="mt-3 space-y-2 text-sm text-gray-600">
@@ -36,7 +32,6 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Social Media */}
           <div>
             <h4 className="font-semibold">Follow us</h4>
             <div className="mt-3 flex gap-3">

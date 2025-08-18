@@ -20,7 +20,6 @@ export default function Navbar() {
     <nav className="bg-white shadow-sm">
       <div className="mx-auto max-w-7xl px-3 sm:px-4">
         <div className="flex h-14 sm:h-16 items-center justify-between">
-          {/* Left - Logo */}
           <Link href="/" className="flex items-center">
             <img
               src="/images/logo.png"
@@ -29,7 +28,6 @@ export default function Navbar() {
             />
           </Link>
 
-          {/* Middle - Menu (Desktop) */}
           <div className="hidden md:flex items-center space-x-4 lg:space-x-6 text-xs sm:text-sm font-medium">
             <div className="relative group">
               <button className="hover:text-blue-600 flex items-center">
@@ -52,7 +50,6 @@ export default function Navbar() {
             <Link href="/contact" className="hover:text-blue-600">Contact us</Link>
           </div>
 
-          {/* Right - Location & Auth (Desktop) */}
           <div className="hidden md:flex items-center space-x-3 lg:space-x-4 text-xs sm:text-sm">
             <span className="flex items-center text-gray-600">
               <img
@@ -80,7 +77,6 @@ export default function Navbar() {
             )}
           </div>
 
-          {/* Mobile Menu Button */}
           <div className="md:hidden">
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
@@ -96,7 +92,6 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Mobile Menu Dropdown */}
       {mobileOpen && (
         <div className="md:hidden bg-white border-t shadow-sm">
           <div className="px-3 sm:px-4 py-3 space-y-3 text-sm sm:text-base font-medium">
@@ -140,7 +135,7 @@ export default function Navbar() {
                       handleLogout();
                       setMobileOpen(false);
                     }}
-                    className="rounded-lg bg-red-500 px-3 py-1 text-white hover:bg-red-600 w-full text-left"
+                    className="rounded-lg bg-blue-500 px-3 py-1 text-white hover:bg-blue-600 w-full text-left"
                   >
                     Logout
                   </button>

@@ -51,7 +51,7 @@ export const fetchNewestCars = createAsyncThunk("cars/fetchNewestCars", async ()
   
   return newestCars.map((car) => {
     const imageMap = {
-      'BMW': '/images/cars/ferrari-f8.png',  // Using Ferrari image for BMW
+      'BMW': '/images/cars/ferrari-f8.png', 
       'Ferrari': '/images/cars/ferrari-f8.png',
       'Chevrolet': '/images/cars/camaro.png',
       'Porsche': '/images/cars/porshe-911.png',
@@ -76,9 +76,8 @@ export const fetchNewestCars = createAsyncThunk("cars/fetchNewestCars", async ()
 export const fetchPopularCars = createAsyncThunk("cars/fetchPopularCars", async () => {
   const cars = await getPopularCars();
   return cars.map((car) => {
-    // Determine the correct image path based on the car's brand
     const imageMap = {
-      'BMW': '/images/cars/ferrari-f8.png',  // Using Ferrari image for BMW
+      'BMW': '/images/cars/ferrari-f8.png',  
       'Ferrari': '/images/cars/ferrari-f8.png',
       'Chevrolet': '/images/cars/camaro.png',
       'Porsche': '/images/cars/porshe-911.png',
@@ -134,11 +133,11 @@ const carsSlice = createSlice({
       })
       .addCase(fetchCarById.fulfilled, (state, action) => {
         state.status = "succeeded";
-        // Create a brand-specific image map
+        
         const brandImageMap = {
           'BMW': [
             '/images/cars/bmw-m5.jpg',
-            '/images/cars/ferrari-f8.png',  // Using as additional images
+            '/images/cars/ferrari-f8.png', 
             '/images/cars/camaro.png',
             '/images/cars/porshe-911.png'
           ],
@@ -174,7 +173,6 @@ const carsSlice = createSlice({
           ]
         };
 
-        // Get images for the current brand or use defaults
         const carImages = brandImageMap[action.payload.brand] || [
           '/images/cars/ferrari-f8.png',
           '/images/cars/camaro.png',

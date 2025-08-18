@@ -1,4 +1,3 @@
-// src/hooks/useSearchParams.js
 'use client';
 
 export function useSearchParams() {

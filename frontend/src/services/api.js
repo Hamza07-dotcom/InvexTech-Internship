@@ -1,4 +1,3 @@
-// src/services/api.js
 import axios from "axios";
 
 const API_URL = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8080";
@@ -11,7 +10,6 @@ const apiClient = axios.create({
   }
 });
 
-// Request interceptor for API calls
 apiClient.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('token');
@@ -27,7 +25,6 @@ apiClient.interceptors.request.use(
   }
 );
 
-// Response interceptor for API calls
 apiClient.interceptors.response.use(
   (response) => response,
   (error) => {
@@ -41,7 +38,6 @@ apiClient.interceptors.response.use(
   }
 );
 
-// Verify API connection
 export const verifyApiConnection = async () => {
   try {
     const startTime = Date.now();
@@ -68,8 +64,6 @@ export const verifyApiConnection = async () => {
   }
 };
 
-// Car related endpoints
-// Local fallback data for popular cars
 const fallbackPopularCars = [
   {
     id: 1,
@@ -194,7 +188,6 @@ export const getPopularCars = async () => {
   }
 };
 
-// Local fallback data for all cars
 const fallbackCars = [
   {
     id: 1,
@@ -254,7 +247,6 @@ const fallbackCars = [
 
 export const getAllCars = async (filters = {}) => {
   try {
-    // First verify the API connection
     const connectionStatus = await verifyApiConnection();
     if (connectionStatus.status === 'error') {
       console.log('Using fallback data due to API connection error');
@@ -271,7 +263,6 @@ export const getAllCars = async (filters = {}) => {
   }
 };
 
-// Local fallback data for individual cars
 const fallbackCarDetails = {
   1: {
     id: 1,
@@ -407,7 +398,6 @@ const fallbackCarDetails = {
 
 export const getCarById = async (id) => {
   try {
-    // First verify the API connection
     const connectionStatus = await verifyApiConnection();
     if (connectionStatus.status === 'error') {
       console.log('Using fallback data for car details');
@@ -433,7 +423,6 @@ export const getCarsByBrand = async (brand) => {
   return data;
 };
 
-// Authentication endpoints
 export const login = async (credentials) => {
   const { data } = await apiClient.post("/auth/login", credentials);
   return data;
@@ -449,13 +438,11 @@ export const forgotPassword = async (email) => {
   return data;
 };
 
-// Brand related endpoints
 export const getAllBrands = async () => {
   const { data } = await apiClient.get("/brands");
   return data;
 };
 
-// Contact and inquiry endpoints
 export const submitContactForm = async (formData) => {
   const { data } = await apiClient.post("/contact", formData);
   return data;

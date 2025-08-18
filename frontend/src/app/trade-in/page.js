@@ -38,7 +38,6 @@ export default function TradeInPage() {
           onSubmit={handleSubmit}
           className="rounded-lg bg-white p-6 shadow-md space-y-5"
         >
-          {/* Personal Info */}
           <div className="grid gap-4 sm:grid-cols-2">
             <div>
               <label className="block text-sm font-medium">Full Name</label>
@@ -76,7 +75,6 @@ export default function TradeInPage() {
             />
           </div>
 
-          {/* Car Details */}
           <div className="grid gap-4 sm:grid-cols-2">
             <div>
               <label className="block text-sm font-medium">Car Brand</label>

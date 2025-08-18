@@ -1,4 +1,4 @@
-// app/login/page.jsx
+
 "use client";
 
 import { useState } from "react";
@@ -11,7 +11,7 @@ export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
 
-  // React Hook Form
+
   const {
     register,
     handleSubmit,
@@ -21,7 +21,7 @@ export default function LoginPage() {
   const onSubmit = async (data) => {
     setError("");
 
-    // Check users in localStorage
+  
     const users = JSON.parse(localStorage.getItem("users")) || [];
     const userFound = users.find(
       (u) => u.email === data.email && u.password === data.password
@@ -32,20 +32,20 @@ export default function LoginPage() {
       return;
     }
 
-    // Store logged-in user for Navbar/useAuth
+    
     localStorage.setItem("user", JSON.stringify(userFound));
     router.push("/");
   };
 
   return (
     <div className="flex min-h-screen">
-      {/* LEFT SIDE - Form */}
+  
       <div className="flex w-full md:w-1/2 items-center justify-center bg-gray-50 px-6">
         <div className="w-full max-w-md rounded-lg bg-white p-8 shadow-lg">
-          {/* Logo */}
+        
           <div className="flex justify-center mb-6">
             <img
-              src="/images/logo.png" // 👉 place logo inside /public/images/logo.png
+              src="/images/logo.png" 
               alt="Carvista Logo"
               className="h-12"
             />
@@ -55,7 +55,7 @@ export default function LoginPage() {
           <p className="mb-6 text-gray-600">Enter and find your dream car now.</p>
 
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-            {/* Email */}
+          
             <div>
               <input
                 type="email"
@@ -68,7 +68,7 @@ export default function LoginPage() {
               )}
             </div>
 
-            {/* Password */}
+            
             <div className="relative">
               <input
                 type={showPassword ? "text" : "password"}
@@ -88,10 +88,10 @@ export default function LoginPage() {
               )}
             </div>
 
-            {/* Error if user not found */}
+            
             {error && <p className="text-sm text-red-500">{error}</p>}
 
-            {/* Remember me + Forgot password */}
+            
             <div className="flex items-center justify-between">
               <label className="flex items-center space-x-2">
                 <input type="checkbox" className="rounded" />
@@ -105,7 +105,7 @@ export default function LoginPage() {
               </Link>
             </div>
 
-            {/* Submit Button */}
+            
             <button
               type="submit"
               disabled={isSubmitting}
@@ -115,7 +115,6 @@ export default function LoginPage() {
             </button>
           </form>
 
-          {/* Register link */}
           <p className="mt-4 text-center text-sm">
             Do you not have an account yet?{" "}
             <Link href="/register" className="text-blue-600 hover:underline">
@@ -125,7 +124,6 @@ export default function LoginPage() {
         </div>
       </div>
 
-      {/* RIGHT SIDE - Image */}
       <div className="hidden md:block w-1/2">
         <img
           src="/images/login/blue-car.png"

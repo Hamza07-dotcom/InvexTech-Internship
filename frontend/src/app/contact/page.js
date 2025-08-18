@@ -78,7 +78,7 @@ export default function ContactPage() {
           </button>
         </form>
 
-        {/* Contact Info */}
+      
         <div className="mt-10 grid gap-8 sm:grid-cols-3">
           <div>
             <h3 className="font-semibold text-gray-900">Address</h3>

@@ -10,17 +10,13 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-// Helper function to get the correct image URL
 const getCarImageUrl = (car) => {
   if (!car) return '/images/img.png';
   
-  // If the image path is provided and exists in our public folder
   if (car.img) {
-    // Remove any double slashes and ensure proper formatting
     return car.img.replace(/\/+/g, '/');
   }
 
-  // Fallback images based on brand
   const brandImageMap = {
     'BMW': '/images/cars/bmw-m5.jpg',
     'Ferrari': '/images/cars/ferrari-f8.png',
@@ -33,7 +29,6 @@ const getCarImageUrl = (car) => {
   return brandImageMap[car.brand] || '/images/img.png';
 };
 
-// Custom arrow components
 const CustomNextArrow = ({ onClick, currentSlide, slideCount }) => {
   const slidesToScroll = 4;
   const remainingSlides = slideCount - (currentSlide + slidesToScroll);
