@@ -36,62 +36,47 @@ app.get('/health-check', (req, res) => {
 });
 
 // Sample car data
-const cars = [
+const carTemplates = [
   {
-    id: 1,
-    model: 'BMW M5',
-    brand: 'BMW',
-    year: 2023,
-    price: 103500,
-    image: '/images/cars/ferrari-f8.png',  // Using Ferrari image as a replacement
-    description: 'Luxury sports sedan with outstanding performance',
+    model: 'BMW M5', brand: 'BMW', image: '/images/cars/ferrari-f8.png', description: 'Luxury sports sedan with outstanding performance', price: 103500, type: 'Sedan', year: 2023
   },
   {
-    id: 2,
-    model: 'Chevrolet Camaro',
-    brand: 'Chevrolet',
-    year: 2023,
-    price: 32495,
-    image: '/images/cars/camaro.png',
-    description: 'Iconic American muscle car',
+    model: 'Chevrolet Camaro', brand: 'Chevrolet', image: '/images/cars/camaro.png', description: 'Iconic American muscle car', price: 32495, type: 'Coupe', year: 2023
   },
   {
-    id: 3,
-    model: 'Ferrari F8',
-    brand: 'Ferrari',
-    year: 2023,
-    price: 276000,
-    image: '/images/cars/ferrari-f8.png',
-    description: 'Breathtaking supercar with incredible performance',
+    model: 'Ferrari F8', brand: 'Ferrari', image: '/images/cars/ferrari-f8.png', description: 'Breathtaking supercar with incredible performance', price: 276000, type: 'Coupe', year: 2023
   },
   {
-    id: 4,
-    model: 'Porsche 911',
-    brand: 'Porsche',
-    year: 2023,
-    price: 126484,
-    image: '/images/cars/porshe-911.png',
-    description: 'Iconic sports car with perfect balance of luxury and performance',
+    model: 'Porsche 911', brand: 'Porsche', image: '/images/cars/porshe-911.png', description: 'Iconic sports car with perfect balance of luxury and performance', price: 126484, type: 'Coupe', year: 2023
   },
   {
-    id: 5,
-    model: 'Lamborghini Aventador',
-    brand: 'Lamborghini',
-    year: 2023,
-    price: 417826,
-    image: '/images/cars/lamborgini.png',
-    description: 'Ultimate supercar with breathtaking design and performance',
+    model: 'Lamborghini Aventador', brand: 'Lamborghini', image: '/images/cars/lamborgini.png', description: 'Ultimate supercar with breathtaking design and performance', price: 417826, type: 'Coupe', year: 2023
   },
   {
-    id: 6,
-    model: 'Volvo XC90',
-    brand: 'Volvo',
-    year: 2023,
-    price: 84100,
-    image: '/images/cars/volvo.png',
-    description: 'Luxury SUV with exceptional safety and comfort',
+    model: 'Volvo XC90', brand: 'Volvo', image: '/images/cars/volvo.png', description: 'Luxury SUV with exceptional safety and comfort', price: 84100, type: 'SUV', year: 2023
   }
 ];
+
+const cars = Array.from({ length: 80 }, (_, i) => {
+  const template = carTemplates[i % carTemplates.length];
+  // Add default values for transmission, fuel, engineCapacity
+  const defaultTransmissions = ['Automatic', 'Manual'];
+  const defaultFuels = ['Gas', 'Electric', 'Hybrid', 'Diesel'];
+  const defaultEngineCapacities = [900, 1500, 2500, 3500];
+  return {
+    id: i + 1,
+    model: template.model + (i > 5 ? ` ${i + 1}` : ''),
+    brand: template.brand,
+    year: template.year - (i % 3),
+    price: template.price + (i * 1000),
+    image: template.image,
+    description: template.description,
+    type: template.type,
+    transmission: defaultTransmissions[i % defaultTransmissions.length],
+    fuel: defaultFuels[i % defaultFuels.length],
+    engineCapacity: defaultEngineCapacities[i % defaultEngineCapacities.length]
+  };
+});
 
 // Get all cars
 app.get('/cars', (req, res) => {

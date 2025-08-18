@@ -8,6 +8,8 @@ import { useRouter } from "next/navigation";
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const { user } = useSelector((s) => s.auth);
+  // Try to get user name if available, fallback to email
+  const userName = user?.name || user?.username || user?.email;
   const dispatch = useDispatch();
   const router = useRouter();
 
@@ -64,7 +66,7 @@ export default function Navbar() {
             </span>
             {user ? (
               <>
-                <span className="text-gray-700">{user.email}</span>
+                <span className="text-gray-700">{userName}</span>
                 <button
                   onClick={handleLogout}
                   className="rounded-lg bg-red-500 px-2 sm:px-3 py-1 text-white hover:bg-red-600 text-xs sm:text-sm"
@@ -73,7 +75,10 @@ export default function Navbar() {
                 </button>
               </>
             ) : (
-              <Link href="/login" className="hover:text-blue-600">Regist/Login</Link>
+              <>
+                <Link href="/login" className="hover:text-blue-600">Login</Link>
+                <Link href="/register" className="hover:text-blue-600 ml-2">Register</Link>
+              </>
             )}
           </div>
 
@@ -131,7 +136,7 @@ export default function Navbar() {
               </span>
               {user ? (
                 <>
-                  <span className="text-gray-700 block mb-2">{user.email}</span>
+                  <span className="text-gray-700 block mb-2">{userName}</span>
                   <button
                     onClick={() => {
                       handleLogout();
@@ -143,13 +148,22 @@ export default function Navbar() {
                   </button>
                 </>
               ) : (
-                <Link
-                  href="/login"
-                  onClick={() => setMobileOpen(false)}
-                  className="block hover:text-blue-600"
-                >
-                  Regist/Login
-                </Link>
+                <div className="flex gap-2">
+                  <Link
+                    href="/login"
+                    onClick={() => setMobileOpen(false)}
+                    className="block hover:text-blue-600"
+                  >
+                    Login
+                  </Link>
+                  <Link
+                    href="/register"
+                    onClick={() => setMobileOpen(false)}
+                    className="block hover:text-blue-600"
+                  >
+                    Register
+                  </Link>
+                </div>
               )}
             </div>
           </div>

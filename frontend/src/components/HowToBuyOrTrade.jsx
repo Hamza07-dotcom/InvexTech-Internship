@@ -12,10 +12,10 @@ export default function HowToBuyOrTrade() {
   ];
 
   const tradeSteps = [
-    { img: "/images/trade1.jpg", text: "Get your current car inspected and appraised by our team." },
-    { img: "/images/trade2.jpg", text: "Receive a trade-in offer based on your car’s condition and market value." },
-    { img: "/images/trade3.jpg", text: "Choose your next car from our collection and apply the trade-in value." },
-    { img: "/images/trade4.jpg", text: "Complete the paperwork and drive away with your new car." }
+    { img: "/images/trade-car/01.png", text: "Apply for a trade-in of your old car for your dream car at Carvista." },
+    { img: "/images/trade-car/02.jpg", text: "Fill out the form, and our team will conduct an inspection and provide an offer." },
+    { img: "/images/trade-car/03.jpg", text: "Choose your dream car at Carvista, and we will proceed with your booking process." },
+    { img: "/images/trade-car/04.png", text: "Pick up your dream car according to the instructions we have provided." }
   ];
 
   const steps = activeTab === "buy" ? buySteps : tradeSteps;
@@ -53,8 +53,8 @@ export default function HowToBuyOrTrade() {
           <div className="md:col-span-2">
             <h2 className="text-2xl font-bold mb-4">
               {activeTab === "buy"
-                ? "Confused about how to buy or trade in a car?"
-                : "Trading in your car is simple with Carvista!"}
+                ? <p>Confused about <br />how to buy or <br />trade in car?</p>
+                : <p>Confused about <br />how to buy or <br />trade in car?</p>}
             </h2>
           </div>
 

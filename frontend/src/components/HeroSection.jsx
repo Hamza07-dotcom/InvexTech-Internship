@@ -97,7 +97,7 @@ export default function Hero() {
               <option>$50k - $100k</option>
             </select>
 
-            <button
+            <button onClick={handleSearch}
               className="
                 rounded-lg bg-blue-600 px-4 sm:px-6 py-2 
                 text-white hover:bg-blue-700 transition 

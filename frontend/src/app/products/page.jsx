@@ -14,7 +14,7 @@ const getCarImageUrl = (car) => {
   }
 
   const modelToImage = {
-    "bmw m5": "/images/brands/bmw-logo.png",
+    "bmw m5": "./images/brands/bmw-logo.png",
     "ferrari f8": "/images/brands/ferrari-f8.png",
     "camaro": "/images/cars/camaro.png",
     "chevrolet camaro": "/images/cars/camaro.png",
@@ -30,7 +30,7 @@ const getCarImageUrl = (car) => {
   }
 
   const brandDefaults = {
-    ferrari: "/images/brands/bmw-logo.png",
+    ferrari: "./images/brands/bmw-logo.png",
     chevrolet: "/images/brands/chevrolet-logo.png",
     porsche: "/images/brands/porshe-911.png",
     lamborghini: "/brands/cars/lamborgini.png",
@@ -151,59 +151,89 @@ export default function ProductsPage() {
   const [searchQuery, setSearchQuery] = useState('');
 
   const filteredCars = useMemo(() => {
-    return cars.filter(car => {
+    console.log('Current filters:', filters);
+    let filtered = cars.filter(car => {
       const monthlyInstallment = car.price * 0.015;
-      
       // Search query filter
       if (searchQuery) {
         const searchStr = searchQuery.toLowerCase();
         const modelMatch = car.model?.toLowerCase().includes(searchStr);
         const brandMatch = car.brand?.toLowerCase().includes(searchStr);
         const descMatch = car.description?.toLowerCase().includes(searchStr);
-        
         if (!modelMatch && !brandMatch && !descMatch) {
           return false;
         }
       }
-      
-      return (
-        // Brand filter
-        (filters.brand.length === 0 || filters.brand.includes(car.brand)) &&
-        
-        // Type filter
-        (filters.type.length === 0 || filters.type.includes(car.type)) &&
-        
-        // Transmission filter
-        (filters.transmission.length === 0 || filters.transmission.includes(car.transmission)) &&
-        
-        // Fuel filter
-        (filters.fuel.length === 0 || filters.fuel.includes(car.fuel)) &&
-        
-        // Engine capacity filter
-        (filters.engineCapacity.length === 0 || filters.engineCapacity.some(range => {
-          if (range === '<1000') return car.engineCapacity < 1000;
-          if (range === '1000-2000') return car.engineCapacity >= 1000 && car.engineCapacity <= 2000;
-          if (range === '2000-3000') return car.engineCapacity >= 2000 && car.engineCapacity <= 3000;
-          if (range === '>3000') return car.engineCapacity > 3000;
-          return true;
-        })) &&
-        
-        // Price range filter
-        (!filters.priceRange.min || car.price >= Number(filters.priceRange.min)) &&
-        (!filters.priceRange.max || car.price <= Number(filters.priceRange.max)) &&
-        
-        // Installment filter
-        (!filters.installmentRange || 
-          (filters.installmentRange === '<1000' && monthlyInstallment < 1000) ||
-          (filters.installmentRange === '<2000' && monthlyInstallment < 2000) ||
-          (filters.installmentRange === '>2000' && monthlyInstallment > 2000))
-      );
-    }).sort((a, b) => {
+      // Transmission filter
+      if (filters.transmission.length > 0 && !filters.transmission.includes(car.transmission)) {
+        return false;
+      }
+      // Fuel filter
+      if (filters.fuel.length > 0 && !filters.fuel.includes(car.fuel)) {
+        return false;
+      }
+      // Engine capacity filter
+      if (filters.engineCapacity.length > 0 && !filters.engineCapacity.some(range => {
+        if (range === '<1000') return car.engineCapacity < 1000;
+        if (range === '1000-2000') return car.engineCapacity >= 1000 && car.engineCapacity <= 2000;
+        if (range === '2000-3000') return car.engineCapacity >= 2000 && car.engineCapacity <= 3000;
+        if (range === '>3000') return car.engineCapacity > 3000;
+        return true;
+      })) {
+        return false;
+      }
+      // Price range filter
+      if (filters.priceRange.min && car.price < Number(filters.priceRange.min)) {
+        return false;
+      }
+      if (filters.priceRange.max && car.price > Number(filters.priceRange.max)) {
+        return false;
+      }
+      // Installment filter
+      if (filters.installmentRange) {
+        if (
+          (filters.installmentRange === '<1000' && monthlyInstallment >= 1000) ||
+          (filters.installmentRange === '<2000' && monthlyInstallment >= 2000) ||
+          (filters.installmentRange === '>2000' && monthlyInstallment <= 2000)
+        ) {
+          return false;
+        }
+      }
+      return true;
+    });
+    // If no cars match all filters, fallback to OR logic (show cars matching any filter)
+    if (filtered.length === 0 && (
+      filters.transmission.length > 0 || filters.fuel.length > 0 || filters.engineCapacity.length > 0 || filters.priceRange.min || filters.priceRange.max || filters.installmentRange
+    )) {
+      filtered = cars.filter(car => {
+        const monthlyInstallment = car.price * 0.015;
+        return (
+          (filters.transmission.length > 0 && filters.transmission.includes(car.transmission)) ||
+          (filters.fuel.length > 0 && filters.fuel.includes(car.fuel)) ||
+          (filters.engineCapacity.length > 0 && filters.engineCapacity.some(range => {
+            if (range === '<1000') return car.engineCapacity < 1000;
+            if (range === '1000-2000') return car.engineCapacity >= 1000 && car.engineCapacity <= 2000;
+            if (range === '2000-3000') return car.engineCapacity >= 2000 && car.engineCapacity <= 3000;
+            if (range === '>3000') return car.engineCapacity > 3000;
+            return true;
+          })) ||
+          (filters.priceRange.min && car.price >= Number(filters.priceRange.min)) ||
+          (filters.priceRange.max && car.price <= Number(filters.priceRange.max)) ||
+          (filters.installmentRange && (
+            (filters.installmentRange === '<1000' && monthlyInstallment < 1000) ||
+            (filters.installmentRange === '<2000' && monthlyInstallment < 2000) ||
+            (filters.installmentRange === '>2000' && monthlyInstallment > 2000)
+          ))
+        );
+      });
+    }
+    console.log('Filtered cars:', filtered);
+    return filtered.sort((a, b) => {
       if (sortBy === 'price_asc') return a.price - b.price;
       if (sortBy === 'price_desc') return b.price - a.price;
       return 0; // default sorting (most relevant)
     });
-  }, [cars, filters, sortBy]);
+  }, [cars, filters, sortBy, searchQuery]);
 
   // Get current page items
   const currentCars = useMemo(() => {
@@ -280,23 +310,30 @@ export default function ProductsPage() {
                 Car brand
               </h3>
               <div className="grid grid-cols-3 gap-3">
-                {["Volvo", "Land Rover", "Chevrolet", "BMW", "Porsche"].map((brand) => (
-                  <button
-                    key={brand}
-                    onClick={() => handleBrandClick(brand)}
-                    className={`p-2 rounded transition-all ${
-                      filters.brand.includes(brand)
-                        ? "bg-blue-50 ring-2 ring-blue-500"
-                        : "hover:bg-gray-50"
-                    }`}
-                  >
-                    <img
-                      src={`/images/brands/${brand.toLowerCase().replace(" ", "-")}.png`}
-                      alt={brand}
-                      className="w-full h-10 object-contain"
-                    />
-                  </button>
-                ))}
+                  {[
+                    { name: "BMW", file: "bmw-logo.png" },
+                    { name: "Chevrolet", file: "chevrolet-logo.png" },
+                    { name: "Land Rover", file: "land-rover-logo.png" },
+                    { name: "Maserati", file: "maserati-logo.png" },
+                    { name: "Porsche", file: "porsche-logo.png" },
+                    { name: "Volvo", file: "volvo-logo.png" }
+                  ].map((brand) => (
+                    <button
+                      key={brand.name}
+                      onClick={() => handleBrandClick(brand.name)}
+                      className={`p-2 rounded transition-all ${
+                        filters.brand.includes(brand.name)
+                          ? "bg-blue-50 ring-2 ring-blue-500"
+                          : "hover:bg-gray-50"
+                      }`}
+                    >
+                      <img
+                        src={`/images/brands/${brand.file}`}
+                        alt={brand.name}
+                        className="w-full h-10 object-contain"
+                      />
+                    </button>
+                  ))}
               </div>
               <button className="text-blue-600 text-xs mt-2">See all</button>
             </div>
@@ -306,26 +343,33 @@ export default function ProductsPage() {
               <h3 className="text-sm font-semibold text-gray-700 mb-3">
                 Car type
               </h3>
-              <div className="grid grid-cols-3 gap-4 text-center text-xs text-gray-700">
-                {["MPV", "SUV", "Sedan", "Coupe", "Van", "Truck"].map((type) => (
-                  <button
-                    key={type}
-                    onClick={() => handleTypeClick(type)}
-                    className={`p-2 rounded transition-all ${
-                      filters.type.includes(type)
-                        ? "bg-blue-50 ring-2 ring-blue-500"
-                        : "hover:bg-gray-50"
-                    }`}
-                  >
-                    <img
-                      src={`/images/car-types/${type.toLowerCase()}.png`}
-                      className="w-10 mx-auto mb-1"
-                      alt={type}
-                    />
-                    {type}
-                  </button>
-                ))}
-              </div>
+                <div className="grid grid-cols-3 gap-4 text-center text-xs text-gray-700">
+                  {[
+                    { name: "ONE", file: "ONE.png" },
+                    { name: "SUV", file: "suv.png" },
+                    { name: "Sedan", file: "sedan.png" },
+                    { name: "Coupe", file: "coupe.png" },
+                    { name: "Van", file: "van.png" },
+                    { name: "Truck", file: "truck.png" }
+                  ].map((type) => (
+                    <button
+                      key={type.name}
+                      onClick={() => handleTypeClick(type.name)}
+                      className={`p-2 rounded transition-all ${
+                        filters.type.includes(type.name)
+                          ? "bg-blue-50 ring-2 ring-blue-500"
+                          : "hover:bg-gray-50"
+                      }`}
+                    >
+                      <img
+                        src={`/images/CAR TYPES/${type.file}`}
+                        className="w-10 mx-auto mb-1"
+                        alt={type.name}
+                      />
+                      {type.name}
+                    </button>
+                  ))}
+                </div>
               <button className="text-blue-600 text-xs mt-2">See all</button>
             </div>
 
@@ -340,7 +384,7 @@ export default function ProductsPage() {
                     <input
                       type="checkbox"
                       checked={filters.transmission.includes(trans)}
-                      onChange={() => handleCheckboxChange("transmission", trans)}
+                      onChange={(e) => handleCheckboxChange("transmission", trans)}
                     />
                     {trans}
                   </label>
@@ -357,7 +401,7 @@ export default function ProductsPage() {
                     <input
                       type="checkbox"
                       checked={filters.fuel.includes(fuel)}
-                      onChange={() => handleCheckboxChange("fuel", fuel)}
+                      onChange={(e) => handleCheckboxChange("fuel", fuel)}
                     />
                     {fuel}
                   </label>
@@ -381,7 +425,7 @@ export default function ProductsPage() {
                     <input
                       type="checkbox"
                       checked={filters.engineCapacity.includes(range.value)}
-                      onChange={() => handleCheckboxChange("engineCapacity", range.value)}
+                      onChange={(e) => handleCheckboxChange("engineCapacity", range.value)}
                     />
                     {range.label}
                   </label>
@@ -562,37 +606,23 @@ export default function ProductsPage() {
 
             {/* Pagination */}
             {filteredCars.length > 0 && (
-              <div className="flex justify-between items-center mt-8">
-                <div className="flex gap-2">
-                  <button
-                    onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
-                    disabled={currentPage === 1}
-                    className={`flex items-center gap-2 border rounded px-4 py-2 text-sm ${
-                      currentPage === 1
-                        ? "bg-gray-100 text-gray-400 cursor-not-allowed"
-                        : "bg-white text-blue-600 hover:bg-blue-50"
-                    }`}
-                  >
-                    ← Previous page
-                  </button>
-                  <button
-                    onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
-                    disabled={currentPage >= totalPages}
-                    className={`flex items-center gap-2 border rounded px-4 py-2 text-sm ${
-                      currentPage >= totalPages
-                        ? "bg-gray-100 text-gray-400 cursor-not-allowed"
-                        : "bg-blue-600 text-white hover:bg-blue-700"
-                    }`}
-                  >
-                    Next page →
-                  </button>
-                </div>
-                <p className="text-sm">
-                  Page <strong>{currentPage}</strong> of {totalPages}
-                  <span className="ml-2 text-gray-500">
-                    ({filteredCars.length} cars total)
-                  </span>
-                </p>
+              <div className="flex justify-between items-center mt-8" style={{ minHeight: '60px' }}>
+                <div></div>
+                <button
+                  onClick={() => {
+                    if (currentPage < totalPages) {
+                      setCurrentPage(prev => prev + 1);
+                    } else {
+                      setCurrentPage(1);
+                    }
+                  }}
+                  className={`flex items-center gap-2 bg-blue-600 text-white rounded px-6 py-3 text-sm font-semibold hover:bg-blue-700 transition-all${currentPage >= totalPages ? ' opacity-50 cursor-not-allowed' : ''}`}
+                  style={{ minWidth: '140px' }}
+                  disabled={filteredCars.length === 0}
+                >
+                  Next page →
+                </button>
+                <span className="ml-4 text-sm font-semibold text-gray-700">Page {currentPage} of {totalPages}</span>
               </div>
             )}
           </main>

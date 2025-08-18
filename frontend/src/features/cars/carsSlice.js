@@ -4,7 +4,7 @@ import { getAllCars, getCarById, getPopularCars } from "@/services/api";
 
 export const fetchCars = createAsyncThunk("cars/fetchCars", async () => {
   const cars = await getAllCars();
-  // Map backend fields to frontend naming
+  // Map backend fields to frontend naming, including all filterable fields
   return cars.map((car) => ({
     id: car.id,
     model: car.model,
@@ -15,7 +15,16 @@ export const fetchCars = createAsyncThunk("cars/fetchCars", async () => {
     description: car.description,
     sold: car.sold || false,
     created: car.created,
-    updated: car.updated
+    updated: car.updated,
+    transmission: car.transmission || car.transmissionType || car.transmission_type,
+    fuel: car.fuel || car.fuelType || car.fuel_type,
+    engineCapacity: car.engineCapacity || car.engine_capacity,
+    type: car.type,
+    seats: car.seats,
+    installment: car.installment,
+    mileage: car.mileage,
+    horsePower: car.horsePower,
+    driveType: car.driveType
   }));
 });
 

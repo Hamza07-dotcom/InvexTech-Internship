@@ -9,7 +9,6 @@ export default function Footer() {
           
           {/* Logo Section */}
           <div>
-            {/* Place your logo image here */}
             <img src="/images/logo.png" alt="Carvista" className="h-10" />
             <p className="mt-3 text-sm text-gray-600">
               Copyright © {new Date().getFullYear()} Carvista all rights reserved.
@@ -41,11 +40,50 @@ export default function Footer() {
           <div>
             <h4 className="font-semibold">Follow us</h4>
             <div className="mt-3 flex gap-3">
-              {/* Replace src with your own icons */}
-              <img src="/images/footer/twitter.png" alt="Twitter" className="h-8 w-8 rounded-full border-white border-[0.5px]" />
-              <img src="/images/footer/facebook.png" alt="Facebook" className="h-8 w-8 rounded-full border-white border-[0.5px]" />
-              <img src="/images/footer/instagram.png" alt="Instagram" className="h-8 w-8 rounded-full border-white border-[0.5px]" />
-              <img src="/images/footer/youtube.png" alt="YouTube" className="h-8 w-8 rounded-full border-white border-[0.5px]" />
+              <a 
+                href="https://twitter.com/yourprofile" 
+                target="_blank" 
+                rel="noopener noreferrer"
+              >
+                <img 
+                  src="/images/footer/twitter.png" 
+                  alt="Twitter" 
+                  className="h-8 w-8 rounded-full border-white border-[0.5px]" 
+                />
+              </a>
+              <a 
+                href="https://facebook.com/yourprofile" 
+                target="_blank" 
+                rel="noopener noreferrer"
+              >
+                <img 
+                  src="/images/footer/facebook.png" 
+                  alt="Facebook" 
+                  className="h-8 w-8 rounded-full border-white border-[0.5px]" 
+                />
+              </a>
+              <a 
+                href="https://instagram.com/yourprofile" 
+                target="_blank" 
+                rel="noopener noreferrer"
+              >
+                <img 
+                  src="/images/footer/instagram.png" 
+                  alt="Instagram" 
+                  className="h-8 w-8 rounded-full border-white border-[0.5px]" 
+                />
+              </a>
+              <a 
+                href="https://youtube.com/yourchannel" 
+                target="_blank" 
+                rel="noopener noreferrer"
+              >
+                <img 
+                  src="/images/footer/youtube.png" 
+                  alt="YouTube" 
+                  className="h-8 w-8 rounded-full border-white border-[0.5px]" 
+                />
+              </a>
             </div>
           </div>
         </div>
