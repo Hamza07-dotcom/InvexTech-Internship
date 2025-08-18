@@ -1,20 +1,18 @@
 "use client";
+import React, { useState } from "react";
 import Link from "next/link";
-import { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { logout } from "@/features/auth/authSlice";
+import useAuth from "@/hooks/useAuth";
 import { useRouter } from "next/navigation";
+
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const { user } = useSelector((s) => s.auth);
-  // Try to get user name if available, fallback to email
+  const { user, logout } = useAuth();
   const userName = user?.name || user?.username || user?.email;
-  const dispatch = useDispatch();
   const router = useRouter();
 
   const handleLogout = () => {
-    dispatch(logout());
+    logout();
     router.push("/login");
   };
 

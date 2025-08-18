@@ -32,8 +32,8 @@ export default function LoginPage() {
       return;
     }
 
-    // Store current user and redirect
-    localStorage.setItem("currentUser", JSON.stringify(userFound));
+    // Store logged-in user for Navbar/useAuth
+    localStorage.setItem("user", JSON.stringify(userFound));
     router.push("/");
   };
 

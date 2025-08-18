@@ -1,108 +1,148 @@
-// app/login/page.jsx
+
 "use client";
-import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { login } from "@/features/auth/authSlice";
-import { useRouter } from "next/navigation";
-import Link from "next/link";
+import React, { useState, useEffect } from "react";
 
-export default function LoginPage() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const dispatch = useDispatch();
-  const router = useRouter();
-  const { loading, error } = useSelector((state) => state.auth);
+const generateOTP = () => Math.floor(100000 + Math.random() * 900000).toString();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const result = await dispatch(login({ email, password }));
-    if (result.meta.requestStatus === "fulfilled") {
-      router.push("/");
+export default function ForgotPassword() {
+  const [step, setStep] = useState(1);
+  const [input, setInput] = useState("");
+  const [otp, setOtp] = useState("");
+  const [enteredOtp, setEnteredOtp] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [error, setError] = useState("");
+  const [redirecting, setRedirecting] = useState(false);
+
+  // Step 1: Enter email or phone
+  const handleSendOtp = () => {
+    if (!input) {
+      setError("Please enter your email or phone number.");
+      return;
+    }
+    setError("");
+    const generatedOtp = generateOTP();
+    setOtp(generatedOtp);
+    localStorage.setItem("otp", generatedOtp);
+    localStorage.setItem("userContact", input);
+    setStep(2);
+  };
+
+  // Step 2: Enter OTP
+  const handleVerifyOtp = () => {
+    const storedOtp = localStorage.getItem("otp");
+    if (enteredOtp === storedOtp) {
+      setError("");
+      setStep(3);
+    } else {
+      setError("Invalid OTP. Please try again.");
     }
   };
 
+  // Step 3: Change password
+  const handleChangePassword = () => {
+    if (!newPassword || !confirmPassword) {
+      setError("Please fill in both password fields.");
+      return;
+    }
+    if (newPassword !== confirmPassword) {
+      setError("Passwords do not match.");
+      return;
+    }
+    // Simulate password change by storing in localStorage
+    const userContact = localStorage.getItem("userContact");
+    localStorage.setItem(`password_${userContact}`, newPassword);
+    setError("");
+    setStep(4);
+    setTimeout(() => {
+      setRedirecting(true);
+      window.location.href = "/login";
+    }, 3000); // Redirect after 3 seconds
+  };
+
   return (
-    <div className="flex min-h-screen relative">
-      {/* LOGO outside card, top-left */}
-      <div className="absolute top-6 left-6">
-        <img
-          src="/images/logo.png"  // put logo file in /public/images/logo.png
-          alt="Carvista Logo"
-          className="h-10 w-auto"
-        />
-      </div>
-
-      {/* LEFT SIDE - Form */}
-      <div className="flex w-full md:w-1/2 items-center justify-center bg-gray-50 px-6">
-        <div className="w-full max-w-md rounded-lg bg-white p-8 shadow-lg">
-          <h1 className="mb-2 text-2xl font-bold">Welcome to Carvista</h1>
-          <p className="mb-6 text-gray-600">Enter and find your dream car now.</p>
-
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <input
-              type="email"
-              placeholder="Input your email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              className="w-full rounded-lg border p-3"
-            />
-            <input
-              type="password"
-              placeholder="Input your password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              className="w-full rounded-lg border p-3"
-            />
-
-            {error && <p className="text-sm text-red-500">{error}</p>}
-
-            <div className="flex items-center justify-between">
-              <label className="flex items-center space-x-2">
-                <input type="checkbox" className="rounded" />
-                <span className="text-sm text-gray-600">Remember me</span>
-              </label>
-              <Link
-                href="/forgot-password"
-                className="text-sm text-blue-600 hover:underline"
-              >
-                Forgot password?
-              </Link>
-            </div>
-
+    <div className="max-w-md mx-auto mt-10 p-6 bg-white rounded shadow">
+      <h2 className="text-2xl font-bold mb-4 text-center">Forgot Password</h2>
+      {step === 1 && (
+        <>
+          <label className="block mb-2">Email or Phone Number</label>
+          <input
+            type="text"
+            className="w-full border px-3 py-2 rounded mb-3"
+            value={input}
+            onChange={e => setInput(e.target.value)}
+            placeholder="Enter your email or phone"
+          />
+          <button
+            className="w-full bg-blue-600 text-white py-2 rounded"
+            onClick={handleSendOtp}
+          >
+            Send OTP
+          </button>
+        </>
+      )}
+      {step === 2 && (
+        <>
+          <label className="block mb-2">Enter OTP</label>
+          <input
+            type="text"
+            className="w-full border px-3 py-2 rounded mb-3"
+            value={enteredOtp}
+            onChange={e => setEnteredOtp(e.target.value)}
+            placeholder="Enter OTP"
+          />
+          <div className="mb-2 text-xs text-gray-500">(Simulation: OTP is <span className="font-bold">{otp}</span>)</div>
+          <button
+            className="w-full bg-blue-600 text-white py-2 rounded"
+            onClick={handleVerifyOtp}
+          >
+            Verify OTP
+          </button>
+        </>
+      )}
+      {step === 3 && (
+        <>
+          <label className="block mb-2">New Password</label>
+          <input
+            type="password"
+            className="w-full border px-3 py-2 rounded mb-3"
+            value={newPassword}
+            onChange={e => setNewPassword(e.target.value)}
+            placeholder="Enter new password"
+          />
+          <label className="block mb-2">Confirm Password</label>
+          <input
+            type="password"
+            className="w-full border px-3 py-2 rounded mb-3"
+            value={confirmPassword}
+            onChange={e => setConfirmPassword(e.target.value)}
+            placeholder="Confirm new password"
+          />
+          <button
+            className="w-full bg-blue-600 text-white py-2 rounded"
+            onClick={handleChangePassword}
+          >
+            Change Password
+          </button>
+        </>
+      )}
+      {step === 4 && (
+        <div className="text-green-600 text-center font-semibold">
+          Password changed successfully! You can now login with your new password.<br />
+          {!redirecting && (
             <button
-              type="submit"
-              disabled={loading}
-              className="w-full rounded-lg bg-blue-600 py-3 text-white hover:bg-blue-700"
+              className="mt-4 bg-blue-600 text-white py-2 px-4 rounded"
+              onClick={() => window.location.href = "/login"}
             >
-              {loading ? "Logging in..." : "Login"}
+              Go to Login
             </button>
-          </form>
-
-          <p className="mt-4 text-center text-sm">
-            Do you not have an account yet?{" "}
-            <Link href="/register" className="text-blue-600 hover:underline">
-              Register here
-            </Link>
-          </p>
+          )}
+          {redirecting && (
+            <div className="mt-2 text-xs text-gray-500">Redirecting to login...</div>
+          )}
         </div>
-      </div>
-
-      {/* RIGHT SIDE - Image */}
-      <div className="hidden md:block w-1/2">
-        <img
-          src="/images/login/blue-car.png"
-          alt="Carvista Login"
-          className="h-screen w-full object-cover"
-        />
-      </div>
+      )}
+      {error && <div className="mt-3 text-red-600 text-center">{error}</div>}
     </div>
   );
-}
-
-import ForgotPassword from "./ForgotPassword";
-
-export default function ForgotPasswordPage() {
-  return <ForgotPassword />;
 }
