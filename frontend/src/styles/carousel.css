@@ -1,0 +1,83 @@
+/* Custom styles for react-slick carousel */
+.slick-prev,
+.slick-next {
+  z-index: 1;
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.9) !important;
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+}
+
+.slick-prev:hover,
+.slick-next:hover {
+  background: white !important;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.slick-prev {
+  left: -20px;
+}
+
+.slick-next {
+  right: -20px;
+}
+
+.slick-prev:before,
+.slick-next:before {
+  color: #4A5568;
+  font-size: 24px;
+  opacity: 0.75;
+}
+
+.slick-dots {
+  bottom: -30px;
+}
+
+.slick-dots li button:before {
+  font-size: 8px;
+  color: #CBD5E0;
+  opacity: 0.5;
+}
+
+.slick-dots li.slick-active button:before {
+  color: #4A5568;
+  opacity: 1;
+}
+
+/* Custom styles for card spacing */
+.slick-slide > div {
+  margin: 0 8px;
+}
+
+.slick-list {
+  margin: 0 -8px;
+}
+
+/* Improve slide visibility during transition */
+.slick-slide {
+  opacity: 0.5;
+  transition: opacity 0.3s ease;
+}
+
+.slick-slide.slick-active {
+  opacity: 1;
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .slick-prev {
+    left: -10px;
+  }
+  
+  .slick-next {
+    right: -10px;
+  }
+  
+  .slick-prev,
+  .slick-next {
+    width: 30px;
+    height: 30px;
+  }
+}
