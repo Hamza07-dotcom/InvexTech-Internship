@@ -75,7 +75,7 @@ export default function NewestCars() {
     infinite: false,
     speed: 500,
     slidesToShow: 4,
-    slidesToScroll: 4,
+    slidesToScroll: 1,
     autoplay: false,
     arrows: true,
     nextArrow: <CustomNextArrow />,
@@ -93,8 +93,8 @@ export default function NewestCars() {
     <section className="bg-white py-6">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between mb-6">
-          <h3 className="text-lg font-semibold text-gray-900">Newest Cars</h3>
-          <Link href="/products" className="text-sm text-blue-600">
+          <h3 className="text-[24px] leading-[150%] tracking-[1.5%] font-bold font-sans text-[#1F2937]">Newest Cars</h3>
+          <Link href="/products" className="text-sm text-[#1F5095]">
             See all
           </Link>
         </div>
@@ -172,13 +172,13 @@ export default function NewestCars() {
                       />
                     </div>
                     <div className="p-4 sm:p-5">
-                      <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-1 line-clamp-1">
+                      <h3 className="lg:font-sans  lg:text-[20px] tracking-[1.5%] sm:text-xl font-semibold text-[#1F2937]  line-clamp-1">
                         {car.name || `${car.brand} ${car.model}`}
                       </h3>
-                      <p className="text-sm text-gray-600 mb-2">Year: {car.year}</p>
-                      <p className="text-blue-600 font-bold mt-2 text-sm sm:text-base">{car.price}</p>
+                      <p className="text-gray-500 text-sm sm:text-base">Year: {car.year}</p>
+                      <p className="text-[#1F2937] font-bold lg:mt-3 lg:text-[20px] lg:tracking-[1.5%] sm:text-xl">{car.price}</p>
                       {car.description && (
-                        <p className="mt-2 text-sm text-gray-600 line-clamp-2">{car.description}</p>
+                        <p className="mt-2 text-sm text-[#1F2937] lg:text-[16px] lg:tracking-[1.5%] line-clamp-2">{car.description}</p>
                       )}
                     </div>
                   </div>

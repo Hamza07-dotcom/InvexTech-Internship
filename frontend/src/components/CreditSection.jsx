@@ -43,16 +43,16 @@ export default function CreditSection() {
   };
 
   return (
-    <section className="bg-blue-50 py-12">
-      <div className="max-w-7xl mx-auto px-4">
+    <section className="bg-white py-12">
+      <div className="max-w-7xl mx-auto px-4 ">
         
-        <div className="flex items-center gap-6 mb-8">
+        <div className="flex items-center justify-center gap-6 mb-8 text-center">
           <button
             onClick={() => setActiveTab("simulation")}
             className={`pb-1 ${
               activeTab === "simulation"
-                ? "text-blue-600 font-semibold border-b-2 border-blue-600"
-                : "text-gray-500 hover:text-blue-600"
+                ? "text-[#1F5095] font-sans font-semibold border-b-2 border-[#1F5095] lg:text-[20px]"
+                : "text-[#8F949B] hover:text-[#1F5095]"
             }`}
           >
             Credit simulation
@@ -61,8 +61,8 @@ export default function CreditSection() {
             onClick={() => setActiveTab("howto")}
             className={`pb-1 ${
               activeTab === "howto"
-                ? "text-blue-600 font-semibold border-b-2 border-blue-600"
-                : "text-gray-500 hover:text-blue-600"
+                ? "text-[#1F5095] font-sans lg:text-[20px] font-semibold border-b-2 border-[#1F5095]"
+                : "text-[#8F949B] hover:text-blue-600"
             }`}
           >
             How to apply for credit
@@ -70,16 +70,16 @@ export default function CreditSection() {
         </div>
 
         {activeTab === "simulation" && (
-          <div className="bg-white rounded-xl shadow-md p-6">
-            <h2 className="text-2xl font-bold mb-2">Simulate your credit now!</h2>
-            <p className="text-gray-500 mb-6">
+          <div className="bg-[#F0F6FF] rounded-xl shadow-md p-6 px-[200px]">
+            <h2 className="text-2xl font-bold mb-2 text-center">Simulate your credit now!</h2>
+            <p className="text-gray-500 mb-6 text-center">
               We will help estimate your credit costs quickly and easily.
             </p>
             
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 ">
               <div className="space-y-4">
                 <select 
-                  className="w-full bg-blue-50 border border-gray-300 rounded-md px-3 py-2"
+                  className="w-full bg-[#FFFFFF] border border-gray-300 rounded-md px-3 py-2"
                   value={selectedCar ? selectedCar.id : ""}
                   onChange={(e) => {
                     const car = cars.find(c => c.id === parseInt(e.target.value));
@@ -109,11 +109,11 @@ export default function CreditSection() {
                     setCustomPrice(true);
                     setSelectedCar(null);
                   }}
-                  className="w-full bg-blue-50 border border-gray-300 rounded-md px-3 py-2"
+                  className="w-full bg-[#FFFFFF] border border-gray-300 rounded-md px-3 py-2"
                 />
                 <div className="flex gap-4">
                   <select 
-                    className="w-1/2 bg-blue-50 border border-gray-300 rounded-md px-3 py-2"
+                    className="w-1/2 bg-[#FFFFFF] border border-gray-300 rounded-md px-3 py-2"
                     value={downPaymentPercent}
                     onChange={(e) => setDownPaymentPercent(parseInt(e.target.value))}
                   >
@@ -128,12 +128,12 @@ export default function CreditSection() {
                     placeholder="Down payment"
                     value={`$${new Intl.NumberFormat('en-US').format(((selectedCar?.price || carPrice) * downPaymentPercent) / 100)}`}
                     readOnly
-                    className="w-1/2 bg-blue-50 border border-gray-300 rounded-md px-3 py-2"
+                    className="w-1/2 bg-[#FFFFFF] border border-gray-300 rounded-md px-3 py-2"
                   />
                 </div>
                 <div className="flex gap-4">
                   <select 
-                    className="w-1/2 bg-blue-50 border border-gray-300 rounded-md px-3 py-2"
+                    className="w-1/2 bg-[#FFFFFF] border border-gray-300 rounded-md px-3 py-2"
                     value={loanTerm}
                     onChange={(e) => setLoanTerm(parseInt(e.target.value))}
                   >
@@ -146,7 +146,7 @@ export default function CreditSection() {
                     <option value={7}>7 years</option>
                   </select>
                   <select 
-                    className="w-1/2 bg-blue-50 border border-gray-300 rounded-md px-3 py-2"
+                    className="w-1/2 bg-[#FFFFFF] border border-gray-300 rounded-md px-3 py-2"
                     value={financier}
                     onChange={(e) => setFinancier(e.target.value)}
                   >
@@ -157,8 +157,8 @@ export default function CreditSection() {
                 </div>
               </div>
 
-              <div className="border border-gray-200 rounded-md p-6 flex flex-col justify-between">
-                <div>
+              <div className="border bg-[#ffffff] border-gray-200  rounded-md p-6 flex flex-col justify-between">
+                <div className="bg-[#FFFFFF]">
                   <p className="text-sm text-gray-500">Monthly installments*</p>
                   <p className="text-4xl font-bold text-blue-600">
                     ${new Intl.NumberFormat('en-US').format(calculateLoan().monthlyPayment)}
@@ -182,7 +182,7 @@ export default function CreditSection() {
                     <span>${new Intl.NumberFormat('en-US').format(calculateLoan().totalCost)}</span>
                   </div>
                 </div>
-                <p className="mt-4 text-xs text-gray-400">
+                <p className="mt-4 text-xs bg-[#F0F6FF] text-gray-400">
                   *The results of the calculation provided here are for simulation purposes only. 
                   Actual calculations may differ from the results shown here.
                 </p>
@@ -192,9 +192,9 @@ export default function CreditSection() {
         )}
 
         {activeTab === "howto" && (
-          <div className="bg-white rounded-xl shadow-md p-6">
-            <h2 className="text-2xl font-bold mb-4">How to apply for credit</h2>
-            <ol className="list-decimal list-inside space-y-2 text-gray-700">
+          <div className="bg-[#F0F6FF] rounded-xl justify-center shadow-md p-6">
+            <h2 className="text-2xl font-bold mb-4 text-center">How to apply for credit</h2>
+            <ol className="list-decimal list-inside space-y-2 text-gray-700 text-center py-[20px] ">
               <li>Choose your desired car from our listings.</li>
               <li>Use the credit simulator to estimate your monthly installments.</li>
               <li>Submit your application with the required documents.</li>

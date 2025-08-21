@@ -439,8 +439,43 @@ export const forgotPassword = async (email) => {
 };
 
 export const getAllBrands = async () => {
-  const { data } = await apiClient.get("/brands");
-  return data;
+  try {
+    const connectionStatus = await verifyApiConnection();
+    if (connectionStatus.status === 'error') {
+      console.log('Using fallback data for brands');
+      return [
+        { id: 1, name: 'BMW', logo: '/images/brands/bmw-logo.png' },
+        { id: 2, name: 'Chevrolet', logo: '/images/brands/chevrolet-logo.png' },
+        { id: 3, name: 'Land Rover', logo: '/images/brands/land-rover-logo.png' },
+        { id: 4, name: 'Maserati', logo: '/images/brands/maserati-logo.png' },
+        { id: 5, name: 'Porsche', logo: '/images/brands/porsche-logo.png' },
+        { id: 6, name: 'Volvo', logo: '/images/brands/volvo-logo.png' }
+      ];
+    }
+    const { data } = await apiClient.get("/brands");
+    if (!data || !Array.isArray(data)) {
+      console.warn('Invalid data format from API, using fallback data');
+      return [
+        { id: 1, name: 'BMW', logo: '/images/brands/bmw-logo.png' },
+        { id: 2, name: 'Chevrolet', logo: '/images/brands/chevrolet-logo.png' },
+        { id: 3, name: 'Land Rover', logo: '/images/brands/land-rover-logo.png' },
+        { id: 4, name: 'Maserati', logo: '/images/brands/maserati-logo.png' },
+        { id: 5, name: 'Porsche', logo: '/images/brands/porsche-logo.png' },
+        { id: 6, name: 'Volvo', logo: '/images/brands/volvo-logo.png' }
+      ];
+    }
+    return data;
+  } catch (error) {
+    console.warn('Error fetching brands:', error.message);
+    return [
+      { id: 1, name: 'BMW', logo: '/images/brands/bmw-logo.png' },
+      { id: 2, name: 'Chevrolet', logo: '/images/brands/chevrolet-logo.png' },
+      { id: 3, name: 'Land Rover', logo: '/images/brands/land-rover-logo.png' },
+      { id: 4, name: 'Maserati', logo: '/images/brands/maserati-logo.png' },
+      { id: 5, name: 'Porsche', logo: '/images/brands/porsche-logo.png' },
+      { id: 6, name: 'Volvo', logo: '/images/brands/volvo-logo.png' }
+    ];
+  }
 };
 
 export const submitContactForm = async (formData) => {

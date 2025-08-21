@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export default function BrandCarousel() {
   const brands = [
-    { name: "BMW", logo: "/images/brands/bmw.png" },
+    { name: "BMW", logo: "/images/brands/bmw-logo.png" },
     { name: "Mercedes", logo: "/images/brands/mercedes.png" },
     { name: "Audi", logo: "/images/brands/audi.png" },
     { name: "Toyota", logo: "/images/brands/toyota.png" },

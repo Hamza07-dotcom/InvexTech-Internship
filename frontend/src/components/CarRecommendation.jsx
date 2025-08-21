@@ -150,7 +150,7 @@ export default function CarRecommendation() {
     infinite: false,
     speed: 500,
     slidesToShow: 4,
-    slidesToScroll: 4,
+    slidesToScroll: 1,
     autoplay: false,
     arrows: true,
     nextArrow: <CustomNextArrow />,
@@ -160,35 +160,35 @@ export default function CarRecommendation() {
         breakpoint: 1536,
         settings: {
           slidesToShow: 4,
-          slidesToScroll: 4,
+          slidesToScroll: 1,
         }
       },
       {
         breakpoint: 1280,
         settings: {
           slidesToShow: 3,
-          slidesToScroll: 3,
+          slidesToScroll: 1,
         }
       },
       {
         breakpoint: 1024, 
         settings: {
           slidesToShow: 2,
-          slidesToScroll: 2,
+          slidesToScroll: 1,
         }
       },
       {
         breakpoint: 768, 
         settings: {
           slidesToShow: 2,
-          slidesToScroll: 2
+          slidesToScroll: 1,
         }
       },
       {
         breakpoint: 640, 
         settings: {
           slidesToShow: 1,
-          slidesToScroll: 1
+          slidesToScroll: 1,
         }
       }
     ]
@@ -199,8 +199,9 @@ export default function CarRecommendation() {
   return (
     <div className="container mx-auto px-4">
       <div className="flex items-center justify-between mb-6">
-        <h2 className="text-2xl font-bold text-gray-900">Recommended Cars</h2>
-        <Link href="/products" className="text-sm text-blue-600">See all</Link>
+        <h2 className="text-[24px] leading-[150%]
+        tracking-[1.5%] font-bold font-sans  text-[#1F2937]">Car recommendation</h2>
+        <Link href="/products" className="text-sm text-[#1F5095]">See all</Link>
       </div>
       <div className="relative carousel-container overflow-hidden">
         <style jsx global>{`
@@ -287,12 +288,15 @@ export default function CarRecommendation() {
               />
             </div>
             <div className="p-4 sm:p-5">
-              <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-1">{car.model}</h3>
+              <h3 className="lg:font-sans  lg:text-[20px] tracking-[1.5%] sm:text-xl font-semibold text-[#1F2937] ">{car.model}</h3>
               <p className="text-gray-500 text-sm sm:text-base">{car.brand} {car.year}</p>
-              <p className="text-blue-600 font-bold mt-3 text-lg sm:text-xl">
+              <p className="text-[#1F2937] font-bold lg:mt-3 lg:text-[20px] lg:tracking-[1.5%] sm:text-xl">
                 ${new Intl.NumberFormat('en-US').format(car.price)}
               </p>
-              <p className="text-sm text-gray-600 mt-2 line-clamp-2">{car.description}</p>
+              <p className="mt-2 text-sm text-[#1F2937] lg:text-[16px] lg:tracking-[1.5%]  line-clamp-2">
+                {car.description}
+              </p>
+
             </div>
           </div>
         </Link>

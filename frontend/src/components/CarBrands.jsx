@@ -7,49 +7,56 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-const CustomNextArrow = ({ onClick }) => (
-  <button
-    onClick={onClick}
-    className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-black/70 hover:bg-black text-white w-10 h-10 rounded-full flex items-center justify-center transform translate-x-1/2 transition-all duration-200 group"
-    aria-label="Next slide"
-  >
-    <svg 
-      className="w-6 h-6 group-hover:scale-110 transition-transform" 
-      fill="none" 
-      stroke="currentColor" 
-      viewBox="0 0 24 24"
+const CustomNextArrow = ({ onClick, currentSlide, slideCount, slidesToShow }) => {
+  const remainingSlides = slideCount - (currentSlide + slidesToShow);
+  if (remainingSlides <= 0) return null;
+  return (
+    <button
+      onClick={onClick}
+      className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white shadow-lg rounded-full p-2 hover:bg-gray-100 transition"
+      aria-label="Next slide"
     >
-      <path 
-        strokeLinecap="round" 
-        strokeLinejoin="round" 
-        strokeWidth={2} 
-        d="M9 5l7 7-7 7" 
-      />
-    </svg>
-  </button>
-);
+      <svg 
+        className="w-5 h-5 text-gray-700" 
+        fill="none" 
+        stroke="currentColor" 
+        viewBox="0 0 24 24"
+      >
+        <path 
+          strokeLinecap="round" 
+          strokeLinejoin="round" 
+          strokeWidth={2} 
+          d="M9 5l7 7-7 7" 
+        />
+      </svg>
+    </button>
+  );
+};
 
-const CustomPrevArrow = ({ onClick }) => (
-  <button
-    onClick={onClick}
-    className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-black/70 hover:bg-black text-white w-10 h-10 rounded-full flex items-center justify-center transform -translate-x-1/2 transition-all duration-200 group"
-    aria-label="Previous slide"
-  >
-    <svg 
-      className="w-6 h-6 group-hover:scale-110 transition-transform" 
-      fill="none" 
-      stroke="currentColor" 
-      viewBox="0 0 24 24"
+const CustomPrevArrow = ({ onClick, currentSlide }) => {
+  if (currentSlide === 0) return null;
+  return (
+    <button
+      onClick={onClick}
+      className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white shadow-lg rounded-full p-2 hover:bg-gray-100 transition"
+      aria-label="Previous slide"
     >
-      <path 
-        strokeLinecap="round" 
-        strokeLinejoin="round" 
-        strokeWidth={2} 
-        d="M15 19l-7-7 7-7" 
-      />
-    </svg>
-  </button>
-);
+      <svg 
+        className="w-5 h-5 text-gray-700" 
+        fill="none" 
+        stroke="currentColor" 
+        viewBox="0 0 24 24"
+      >
+        <path 
+          strokeLinecap="round" 
+          strokeLinejoin="round" 
+          strokeWidth={2} 
+          d="M15 19l-7-7 7-7" 
+        />
+      </svg>
+    </button>
+  );
+};
 
 export default function CarBrands() {
   const dispatch = useDispatch();
@@ -65,16 +72,26 @@ export default function CarBrands() {
     speed: 500,
     slidesToShow: 6,
     slidesToScroll: 1,
-    autoplay: true,
+    autoplay: false,
     autoplaySpeed: 3000,
+    arrows: true,
     nextArrow: <CustomNextArrow />,
     prevArrow: <CustomPrevArrow />,
     responsive: [
+      {
+        breakpoint: 1600,
+        settings: {
+          slidesToShow: 5,
+          slidesToScroll: 1,
+          arrows: true,
+        }
+      },
       {
         breakpoint: 1280,
         settings: {
           slidesToShow: 5,
           slidesToScroll: 1,
+          arrows: true,
         }
       },
       {
@@ -82,33 +99,49 @@ export default function CarBrands() {
         settings: {
           slidesToShow: 4,
           slidesToScroll: 1,
+          arrows: true,
         }
       },
       {
         breakpoint: 768,
         settings: {
           slidesToShow: 3,
-          slidesToScroll: 1
+          slidesToScroll: 1,
+          arrows: true,
         }
       },
       {
         breakpoint: 480,
         settings: {
           slidesToShow: 2,
-          slidesToScroll: 1
+          slidesToScroll: 1,
+          arrows: true,
         }
       }
     ]
   };
 
+  // Fallback brand if not enough from API
+  const fallbackBrands = [
+    {
+      id: 'fallback-1',
+      name: 'TestBrand',
+      logo: '/images/brands/bmw-logo.png',
+    },
+  ];
+
+  const displayBrands = brands.length < 7
+    ? [...brands, ...fallbackBrands]
+    : brands;
+
   return (
     <section className="bg-white py-12">
       <div className="container mx-auto px-4">
-        <h2 className="text-2xl font-bold text-gray-900 mb-6">Popular Brands</h2>
-        <div className="relative carousel-container">
+  <h2 className="mb-6 text-[24px] leading-[150%] tracking-[1.5%] font-bold font-sans text-[#1F2937]">Car brand</h2>
+        <div className="relative carousel-container overflow-hidden ">
           {status === 'loading' ? (
             <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
-              {[1, 2, 3, 4, 5, 6].map((i) => (
+              {[1, 2, 3, 4, 5, 6, 7].map((i) => (
                 <div key={i} className="rounded-lg bg-gray-100 h-24 animate-pulse"/>
               ))}
             </div>
@@ -124,7 +157,7 @@ export default function CarBrands() {
             </div>
           ) : (
             <Slider {...settings}>
-              {brands.filter(brand => brand.name.toLowerCase() !== 'bmw').map((brand) => (
+              {displayBrands.filter(brand => brand.name.toLowerCase() !== 'bmw').map((brand) => (
                 <div key={brand.id} className="px-2">
                   <div className="rounded-lg bg-white p-6 shadow hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 h-24 flex items-center justify-center">
                     <Image
@@ -154,11 +187,7 @@ export default function CarBrands() {
         .carousel-container .slick-slide > div {
           height: 100%;
         }
-        @media (max-width: 640px) {
-          .carousel-container .slick-arrow {
-            display: none !important;
-          }
-        }
+  /* Remove hiding arrows on small screens so arrows always show */
       `}</style>
     </section>
   );

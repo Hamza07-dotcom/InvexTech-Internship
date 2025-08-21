@@ -24,34 +24,34 @@ export default function Navbar() {
             <img
               src="/images/logo.png"
               alt="Carvista"
-              className="h-5 sm:h-6 w-auto"
+              className="h-5 sm:h-6 w-auto ml-[5px]"
             />
           </Link>
 
-          <div className="hidden md:flex items-center space-x-4 lg:space-x-6 text-xs sm:text-sm font-medium">
-            <div className="relative group">
-              <button className="hover:text-blue-600 flex items-center">
-                Buy car <span className="ml-1">▼</span>
+          <div className="hidden md:flex items-center space-x-4 lg:space-x-6 text-xs sm:text-sm font-medium lg:ml-[-430px]">
+            <div className="relative group ">
+              <button className="hover:text-blue-600 flex items-center  font-semibold text-base leading-[150%] tracking-[1.5%]">
+                Buy car <span className="ml-1"></span>
               </button>
-              <div className="absolute left-0 mt-[-10px] hidden w-36 sm:w-40 rounded-lg bg-white shadow-md group-hover:block z-10">
-                <Link href="/products" className="block px-3 py-2 hover:bg-gray-50">
+              <div className="absolute left-0 mt-[-10px] hidden w-36 sm:w-40 rounded-lg bg-white shadow-md group-hover:block z-13 group-hover:mt-[5px]">
+                <Link href="/products" className="block px-3 py-2 hover:bg-gray-50  font-semibold text-base leading-[150%] tracking-[1.5%] text-[#1F2937]">
                   All Cars
                 </Link>
-                <Link href="/products?type=suv" className="block px-3 py-2 hover:bg-gray-50">
+                <Link href="/products?type=suv" className="block px-3 py-2 hover:bg-gray-50 text-[#1F2937]">
                   SUV
                 </Link>
-                <Link href="/products?type=coupe" className="block px-3 py-2 hover:bg-gray-50">
+                <Link href="/products?type=coupe" className="block px-3 py-2 hover:bg-gray-50 text-[#1F2937]">
                   Coupe
                 </Link>
               </div>
             </div>
-            <Link href="/trade-in" className="hover:text-blue-600">Trade-in</Link>
-            <Link href="/promo" className="hover:text-blue-600">Promo</Link>
-            <Link href="/contact" className="hover:text-blue-600">Contact us</Link>
+            <Link href="/trade-in" className="hover:text-blue-600 font-sans text-base leading-[150%] tracking-[1.5%] font-semibold  text-[#1F2937]">Trade-in</Link>
+            <Link href="/promo" className="hover:text-blue-600  font-sans text-base leading-[150%] tracking-[1.5%] font-semibold text-[#1F2937]">Promo</Link>
+            <Link href="/contact" className="hover:text-blue-600  font-sans text-base leading-[150%] tracking-[1.5%] font-semibold text-[#1F2937]">Contact us</Link>
           </div>
 
           <div className="hidden md:flex items-center space-x-3 lg:space-x-4 text-xs sm:text-sm">
-            <span className="flex items-center text-gray-600">
+            <span className="flex items-center font-sans text-base leading-[150%] tracking-[1.5%] font-semibold text-[#1F2937]">
               <img
                 src="/images/locate.png"
                 alt="Location"
@@ -71,8 +71,8 @@ export default function Navbar() {
               </>
             ) : (
               <>
-                <Link href="/login" className="hover:text-blue-600">Login</Link>
-                <Link href="/register" className="hover:text-blue-600 ml-2">Register</Link>
+                <Link href="/login" className="hover:text-blue-600 font-sans text-base leading-[150%] tracking-[1.5%] font-semibold text-[#1F2937]">Register/Login</Link>
+                {/* <Link href="/register" className="hover:text-blue-600 ml-2">Register</Link> */}
               </>
             )}
           </div>
@@ -83,7 +83,7 @@ export default function Navbar() {
               className="p-1"
             >
               <img
-                src={mobileOpen ? "/images/close.png" : "/images/more.png"}
+                src={mobileOpen ? "/images/close.png" : "/images/Assets/hamburger.png"}
                 alt="Menu"
                 className="h-4 sm:h-5 w-4 sm:w-5"
               />

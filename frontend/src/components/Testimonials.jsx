@@ -24,7 +24,9 @@ export default function Testimonials() {
     <section className="bg-white py-12">
       <div className="mx-auto max-w-7xl px-4">
         {/* Section title */}
-        <h3 className="mb-8 text-xl font-semibold text-gray-900">
+        <h3 className="mb-8 lg:text-[24px]  font-bold text-[#1F2937]
+        lg:tracking-[1.5%]
+        ">
           What they say about Carvista
         </h3>
 
@@ -36,15 +38,15 @@ export default function Testimonials() {
               className="rounded-lg border border-gray-200 p-6 hover:shadow-md transition-shadow"
             >
               {/* Title */}
-              <h4 className="font-semibold text-lg text-gray-900 mb-2">
+              <h4 className="font-bold font-sans  text-[20px] tracking-[1.5%] text-[#1F2937] mb-2">
                 {t.title}
               </h4>
 
               {/* Testimonial text */}
-              <p className="text-gray-600 mb-4">{t.text}</p>
+              <p className=" font-sans lg:text-[16px] tracking-[1.5%] text-[#8F949B] b-4">{t.text}</p>
 
               {/* Name */}
-              <div className="text-gray-700 font-medium">{t.name}</div>
+              <div className="text-[#1F2937] font-sans font-regular lg:text-[16px] tracking-[1.5%]">{t.name}</div>
 
               {/* City with custom icon image */}
               <div className="flex items-center text-sm text-gray-500 mt-1">

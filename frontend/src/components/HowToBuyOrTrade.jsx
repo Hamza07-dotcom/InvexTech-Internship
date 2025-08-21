@@ -22,15 +22,15 @@ export default function HowToBuyOrTrade() {
 
   return (
     <section className="bg-blue-50 py-12">
-      <div className="max-w-7xl mx-auto px-4">
+      <div className="max-w-7xl mx-auto px-0">
         
-        <div className="flex items-center gap-6 mb-8">
+        <div className="flex items-center justify-center gap-6 mb-8">
           <button
             onClick={() => setActiveTab("buy")}
             className={`pb-1 ${
               activeTab === "buy"
-                ? "text-blue-600 font-semibold border-b-2 border-blue-600"
-                : "text-gray-500 hover:text-blue-600"
+                ? "text-[#1F5095] font-sans font-semibold lg:text-[20px] tracking-[1.5%] border-b-2 border-[#1F5095]"
+                : "text-[#8F949B] hover:text-[#1F5095]"
             }`}
           >
             How to buy car
@@ -39,8 +39,8 @@ export default function HowToBuyOrTrade() {
             onClick={() => setActiveTab("trade")}
             className={`pb-1 ${
               activeTab === "trade"
-                ? "text-blue-600 font-semibold border-b-2 border-blue-600"
-                : "text-gray-500 hover:text-blue-600"
+                ? "text-[#1F5095] font-sans font-semibold lg:text-[20px] tracking-[1.5%] border-b-2 border-[#1F5095]"
+                : "text-[#8F949B] hover:text-[#1F5095]"
             }`}
           >
             How to trade-in
@@ -49,7 +49,7 @@ export default function HowToBuyOrTrade() {
 
         <div className="grid grid-cols-1 md:grid-cols-5 gap-8 items-center">
           <div className="md:col-span-2">
-            <h2 className="text-2xl font-bold mb-4">
+            <h2 className="text-2xl font-bold mb-4 text-[#1F2937] font-sans lg:text-[40px] lg:leading-[120%] tracking-[1.2%] text-center  ">
               {activeTab === "buy"
                 ? <p>Confused about <br />how to buy or <br />trade in car?</p>
                 : <p>Confused about <br />how to buy or <br />trade in car?</p>}

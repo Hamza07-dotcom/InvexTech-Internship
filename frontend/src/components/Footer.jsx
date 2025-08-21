@@ -41,9 +41,9 @@ export default function Footer() {
                 rel="noopener noreferrer"
               >
                 <img 
-                  src="/images/footer/twitter.png" 
+                  src="/images/footer/twitter.svg" 
                   alt="Twitter" 
-                  className="h-8 w-8 rounded-full border-white border-[0.5px]" 
+                  className="h-8 w-8 p-[5px] rounded-full gap-[4px] border-[1px] border-[#D9DBDE]" 
                 />
               </a>
               <a 
@@ -52,9 +52,9 @@ export default function Footer() {
                 rel="noopener noreferrer"
               >
                 <img 
-                  src="/images/footer/facebook.png" 
+                  src="/images/footer/facebook.svg" 
                   alt="Facebook" 
-                  className="h-8 w-8 rounded-full border-white border-[0.5px]" 
+                  className="h-8 w-8 p-[5px] rounded-full gap-[4px] border-[1px] border-[#D9DBDE]" 
                 />
               </a>
               <a 
@@ -63,9 +63,9 @@ export default function Footer() {
                 rel="noopener noreferrer"
               >
                 <img 
-                  src="/images/footer/instagram.png" 
+                  src="/images/footer/instagram.svg" 
                   alt="Instagram" 
-                  className="h-8 w-8 rounded-full border-white border-[0.5px]" 
+                  className="h-8 w-8 p-[5px] rounded-full gap-[4px] border-[1px] border-[#D9DBDE]" 
                 />
               </a>
               <a 
@@ -74,9 +74,9 @@ export default function Footer() {
                 rel="noopener noreferrer"
               >
                 <img 
-                  src="/images/footer/youtube.png" 
+                  src="/images/footer/youtube1.svg" 
                   alt="YouTube" 
-                  className="h-8 w-8 rounded-full border-white border-[0.5px]" 
+                  className="h-8 w-8 p-[5px] rounded-full gap-[4px] border-[1px] border-[#D9DBDE]" 
                 />
               </a>
             </div>
